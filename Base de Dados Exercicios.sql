@@ -9,7 +9,7 @@ FROM employees;
 #Q 4
 SELECT *
 FROM orderdetails;
-#O objetivo desta query é obter todas as ordes registadas na tabela de ordens pedidas.
+#O objetivo desta query é obter todas as ordens registadas na tabela de ordens pedidas.
 
 #Q 5
 SELECT *
@@ -95,13 +95,72 @@ LIKE '19%';
  
  #Q 20
  SELECT *
- FROM employees
- ORDER BY jobTitle DESC, email ASC;
+ FROM customers
+ ORDER BY creditLimit DESC;
  
  #Q 21
-
- SELECT customerName, productName, productLine
- FROM customers, products
- #INNER JOIN orders ON customers.customerNumber = orders.customerNumber;
- ORDER BY FIELD(productLine, 'Trucks and Buses', 'Classic Cars', 'Motorcycles');
+ SELECT *
+ FROM products
+ ORDER BY FIELD(productLine,'Trucks and Buses', 'Classic Cars', 'Motorcycles'), productLine ASC;
+ 
+ #Q 22
+ SELECT *
+ FROM customers
+ ORDER BY creditLimit DESC
+ LIMIT 1;
+ 
+ #Q 23
+ SELECT *
+ FROM customers
+ ORDER BY creditLimit DESC
+ LIMIT 5 offset 4;
+ 
+ #Q 24
+ SELECT 1+1, 2*5, 10/3, power(3,2);
+ 
+ #Q 25
+ SELECT 1+1 as SOMA, 2*5 as MULTIPLICAÇÂO, 10/3 as DIVISÂO, power(3,2) as POTENCIAL;
+ 
+ #Q 26
+ SELECT contactFirstName as NOME, contactLastName as APELIDO, creditLimit as Limite_Credito, creditLimit * 0.80 as Menos_20_Porcento_Credito
+ FROM customers;
+ 
+ #Q 27
+ #SELECT DISTINCT employeeNumber, lastName, firstName, extension, email, officeCode, reportsTo
+ SELECT DISTINCT jobTitle
+ FROM employees;
+ 
+ #Q 28
+ SELECT DISTINCT country, city
+ FROM customers;
+ 
+ #Q 29
+ SELECT COUNT(*)
+ FROM customers;
+ 
+ #Q 29-1
+ SELECT DISTINCT country, COUNT(*)
+ FROM customers
+ WHERE country IN ('France');
+ 
+ #Q 29-2
+ SELECT COUNT(DISTINCT country)
+ FROM customers;
+ 
+ SELECT date_format(orderDate,'%d %Y') FROM orders LIMIT 1;
+ 
+ #Q 30
+ SELECT customerName as Cliente, CONCAT(contactFirstName," ",contactLastName) as "Nome de Contacto" #, phone as Telemovel
+ FROM customers;
+ 
+ #Q 31 substr(contactFirstName,1), left(contactFirstName,1)
+ SELECT customerName as Cliente, UPPER(CONCAT(substr(contactFirstName, 1,1),". ", contactLastName)) as "Nome de Contacto"
+ FROM customers;
+ 
+ #Q 32
+ SELECT REPLACE(productName,"Ford","BMW") as "Substituir palavra Ford por BMW"
+ FROM products
+ WHERE productName 
+ LIKE ('%Ford%');
+ 
  
