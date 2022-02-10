@@ -1,3 +1,7 @@
+#Q 1
+SELECT *
+FROM customers;
+
 #Q 2 
 SELECT firstName, lastName
 FROM employees;
@@ -147,7 +151,8 @@ LIKE '19%';
  SELECT COUNT(DISTINCT country)
  FROM customers;
  
- SELECT date_format(orderDate,'%d %Y') FROM orders LIMIT 1;
+ SELECT date_format(orderDate,'%d %Y') 
+ FROM orders LIMIT 1;
  
  #Q 30
  SELECT customerName as Cliente, CONCAT(contactFirstName," ",contactLastName) as "Nome de Contacto" #, phone as Telemovel
@@ -162,5 +167,63 @@ LIKE '19%';
  FROM products
  WHERE productName 
  LIKE ('%Ford%');
+ 
+ #Q 33 
+ SELECT productDescription, LENGTH(productDescription) as "Tamanho do texto"
+ FROM products;
+
+ #Q 34
+ SELECT SUBSTRING(productName, 1,4) as  "4 Letras Iniciais do Nome"
+ FROM products
+ WHERE productName LiKe '19%' or productName LiKe '2%';
+ 
+ #Q 35
+ SELECT *
+ FROM orders
+ WHERE DATE(orderDate) = '2005-01-20';
+ 
+ #Q 36
+ SELECT *
+ FROM orders
+ WHERE YEAR(orderDate)  = '2005' AND MONTH(orderDate) = '01';
+ 
+ #Q 37
+ SELECT *
+ FROM orders
+ WHERE shippedDate >= requiredDate;
+ 
+ #Q 38 Media
+ SELECT AVG(datediff(shippedDate, orderDate)) AS 'Média' ,
+		MAX(datediff(shippedDate, orderDate)) AS 'Máximo',
+		MIN(datediff(shippedDate, orderDate)) AS 'Máximo'
+ FROM orders
+ #WHERE shippedDate >='2004-11-01' AND shippedDate <= '2004-11-31';
+ WHERE shippedDate like '2004-11-%';
+ 
+ #Q 39
+ SELECT *
+ FROM orders
+ WHERE shippedDate is NULL;
+ 
+ #Q 40
+ SELECT productCode as "Código do Produto", productName as "Nome do Produto", textDescription as "Descrição"
+ FROM products t1
+ INNER JOIN productlines t2
+ ON t1.productLine = t2.productLine;
+ 
+#Q 41
+SELECT *
+FROM payments
+INNER JOIN customers on payments.customerNumber = customers.customerNumber;
+ 
+ #Q 42
+ SELECT *
+ FROM customers INNER JOIN employees ON customers.salesRepEmployeeNumber = employees.employeeNumber;
+ 
+ #Q 43
+ SELECT orderdetails.*, productlines, textDescription
+ FROM orderdetails INNER JOIN products INNER JOIN productlines
+ ON orderdetails = products.productLine, productLine.textDescription;
+ 
  
  
